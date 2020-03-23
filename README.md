@@ -1,3 +1,5 @@
+![Screenshot](icon.png)
+
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 [![Build Status](https://travis-ci.org/vyahello/urequest.svg?branch=master)](https://travis-ci.org/vyahello/urequest)
 [![Coverage Status](https://coveralls.io/repos/github/vyahello/urequest/badge.svg?branch=master)](https://coveralls.io/github/vyahello/urequest?branch=master)
