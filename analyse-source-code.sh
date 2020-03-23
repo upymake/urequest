@@ -27,27 +27,11 @@ DOC
 }
 
 
-check-flake8() {
-:<<DOC
-    Runs "flake8" code analysers
-DOC
-    --entry-point-box "flake" && ( flake8 ${PACKAGE} )
-}
-
-
-check-flakehell() {
-:<<DOC
-    Runs "flakehell" code analysers
-DOC
-    --entry-point-box "flakehell" && ( flakehell lint )
-}
-
-
 check-flake() {
 :<<DOC
     Runs "flake8" code analysers
 DOC
-    check-flake8 && check-flakehell
+    --entry-point-box "flake" && ( flake8 ${PACKAGE} )
 }
 
 
@@ -92,6 +76,7 @@ DOC
       check-black && \
       check-mypy && \
       check-pylint && \
+      check-flake && \
       check-docstrings && \
       check-unittests
     )

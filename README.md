@@ -13,7 +13,7 @@
 
 # uRequest
 
-> Provides user-friendly interface for HTTP client with OOP support.
+> Provides user-friendly HTTP client with object oriented support.
 >
 > Basically it is a wrapper over **requests** python library.
 
@@ -40,7 +40,7 @@ Please run following script to obtain latest package from PYPI:
 ### Quick start
 
 ```python
-TDB
+TBD
 ```
 ### Source code
 
