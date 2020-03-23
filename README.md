@@ -40,7 +40,28 @@ Please run following script to obtain latest package from PYPI:
 ### Quick start
 
 ```python
-TBD
+>>> from urequest.session import Session, HttpSession
+>>> from urequest.response import Response
+>>> from urequest.url import HttpUrl
+>>>
+>>> session: Session = HttpSession()
+>>> response: Response = session.get(HttpUrl(host="xkcd.com", path="info.0.json"))
+>>> response.is_ok()
+True
+>>> response.as_json()
+{
+    "month": "3",
+    "num": 2284,
+    "link": "",
+    "year": "2020",
+    "news": "",
+    "safe_title": "Sabotage",
+    "transcript": "",
+    "alt": "So excited to see everyone after my cruise home from the World Handshake Championships!",
+    "img": "https://imgs.xkcd.com/comics/sabotage.png",
+    "title": "Sabotage",
+    "day": "23",
+}
 ```
 ### Source code
 
@@ -49,7 +70,7 @@ TBD
 ➜ pip install -e .
 ```
 
-Or using direct source:
+Or using direct source release:
 ```bash
 ➜ pip install git+https://github.com/vyahello/urequest@0.0.1
 ```
