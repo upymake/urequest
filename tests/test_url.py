@@ -1,25 +1,26 @@
 import pytest
+import _pytest.mark
 from urequest.url import Address, Url, HttpUrl, HttpsUrl
 
 _host: str = "9.9.9.9"
 _path: str = "/api/path"
 
-pytestmark = pytest.mark.unittest
+pytestmark: _pytest.mark.MarkDecorator = pytest.mark.unittest
 
 
 @pytest.fixture(scope="module")
 def url() -> Address:
-    return Url(_host, protocol="ftp", path=_path)
+    yield Url(_host, protocol="ftp", path=_path)
 
 
 @pytest.fixture(scope="module")
 def http_url() -> Address:
-    return HttpUrl(_host, _path)
+    yield HttpUrl(_host, _path)
 
 
 @pytest.fixture(scope="module")
 def https_url() -> Address:
-    return HttpsUrl(_host, _path)
+    yield HttpsUrl(_host, _path)
 
 
 def test_url_with_leading_slash() -> None:

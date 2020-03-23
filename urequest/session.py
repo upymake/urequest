@@ -5,14 +5,14 @@ from typing import Dict, Any, ContextManager, Optional, Type
 import requests
 from uyaml.connection import Friendly
 from urequest.response import Response, HttpResponse, safe_response
-from urequest.url import Url
+from urequest.url import Address
 
 
 class Session(Friendly, ContextManager["Session"]):
     """The class represents abstract interfaces for an API Session."""
 
     @abstractmethod
-    def get(self, url: Url, **kwargs: Any) -> Response:
+    def get(self, url: Address, **kwargs: Any) -> Response:
         """Performs ``GET`` HTTP request of a session.
 
         Args:
@@ -24,7 +24,7 @@ class Session(Friendly, ContextManager["Session"]):
         pass
 
     @abstractmethod
-    def options(self, url: Url, **kwargs: Any) -> Response:
+    def options(self, url: Address, **kwargs: Any) -> Response:
         """Performs ``OPTIONS`` HTTP request of a session.
 
         Args:
@@ -36,7 +36,7 @@ class Session(Friendly, ContextManager["Session"]):
         pass
 
     @abstractmethod
-    def head(self, url: Url, **kwargs: Any) -> Response:
+    def head(self, url: Address, **kwargs: Any) -> Response:
         """Performs ``HEAD`` HTTP request of a session.
 
         Args:
@@ -48,7 +48,7 @@ class Session(Friendly, ContextManager["Session"]):
         pass
 
     @abstractmethod
-    def post(self, url: Url, plain: str = None, as_dict: Dict[Any, Any] = None, **kwargs: Any) -> Response:
+    def post(self, url: Address, plain: str = None, as_dict: Dict[Any, Any] = None, **kwargs: Any) -> Response:
         """Performs ``POST`` HTTP request of a session.
 
         Args:
@@ -62,7 +62,7 @@ class Session(Friendly, ContextManager["Session"]):
         pass
 
     @abstractmethod
-    def put(self, url: Url, plain: str = None, as_dict: Dict[Any, Any] = None, **kwargs: Any) -> Response:
+    def put(self, url: Address, plain: str = None, as_dict: Dict[Any, Any] = None, **kwargs: Any) -> Response:
         """Performs ``PUT`` HTTP request of a session.
 
         Args:
@@ -76,7 +76,7 @@ class Session(Friendly, ContextManager["Session"]):
         pass
 
     @abstractmethod
-    def patch(self, url: Url, plain: str = None, as_dict: Dict[Any, Any] = None, **kwargs: Any) -> Response:
+    def patch(self, url: Address, plain: str = None, as_dict: Dict[Any, Any] = None, **kwargs: Any) -> Response:
         """Performs ``PATCH`` HTTP request of a session.
 
         Args:
@@ -90,7 +90,7 @@ class Session(Friendly, ContextManager["Session"]):
         pass
 
     @abstractmethod
-    def delete(self, url: Url, **kwargs: Any) -> Response:
+    def delete(self, url: Address, **kwargs: Any) -> Response:
         """Performs ``DELETE`` HTTP request of a session.
 
         Args:
@@ -111,25 +111,25 @@ class HttpSession(Session):
     def __enter__(self) -> Session:
         return self
 
-    def get(self, url: Url, **kwargs: Any) -> Response:
+    def get(self, url: Address, **kwargs: Any) -> Response:
         return safe_response(HttpResponse(self._session.get(str(url), **kwargs)))
 
-    def options(self, url: Url, **kwargs: Any) -> Response:
+    def options(self, url: Address, **kwargs: Any) -> Response:
         return safe_response(HttpResponse(self._session.options(str(url), **kwargs)))
 
-    def head(self, url: Url, **kwargs: Any) -> Response:
+    def head(self, url: Address, **kwargs: Any) -> Response:
         return safe_response(HttpResponse(self._session.head(str(url), **kwargs)))
 
-    def post(self, url: Url, plain: str = None, as_dict: Dict[Any, Any] = None, **kwargs: Any) -> Response:
+    def post(self, url: Address, plain: str = None, as_dict: Dict[Any, Any] = None, **kwargs: Any) -> Response:
         return safe_response(HttpResponse(self._session.post(str(url), data=plain, json=as_dict, **kwargs)))
 
-    def put(self, url: Url, plain: str = None, as_dict: Dict[Any, Any] = None, **kwargs: Any) -> Response:
+    def put(self, url: Address, plain: str = None, as_dict: Dict[Any, Any] = None, **kwargs: Any) -> Response:
         return safe_response(HttpResponse(self._session.put(str(url), data=plain, json=as_dict, **kwargs)))
 
-    def patch(self, url: Url, plain: str = None, as_dict: Dict[Any, Any] = None, **kwargs: Any) -> Response:
+    def patch(self, url: Address, plain: str = None, as_dict: Dict[Any, Any] = None, **kwargs: Any) -> Response:
         return safe_response(HttpResponse(self._session.patch(str(url), data=plain, json=as_dict, **kwargs)))
 
-    def delete(self, url: Url, **kwargs: Any) -> Response:
+    def delete(self, url: Address, **kwargs: Any) -> Response:
         return safe_response(HttpResponse(self._session.delete(str(url), **kwargs)))
 
     def __exit__(

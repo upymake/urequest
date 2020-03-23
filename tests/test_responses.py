@@ -1,9 +1,10 @@
 from typing import Iterable
 import pytest
+import _pytest.mark
 from tests.fake import FakeHttpResponse
 from urequest.response import safe_response, ResponseError, Response
 
-pytestmark = pytest.mark.unittest
+pytestmark: _pytest.mark.MarkDecorator = pytest.mark.unittest
 
 
 @pytest.mark.parametrize(
