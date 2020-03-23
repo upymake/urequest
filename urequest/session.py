@@ -3,11 +3,12 @@ from abc import abstractmethod
 from types import TracebackType
 from typing import Dict, Any, ContextManager, Optional, Type
 import requests
+from uyaml.connection import Friendly
 from urequest.response import Response, HttpResponse, safe_response
 from urequest.url import Url
 
 
-class Session(ContextManager["Session"]):
+class Session(Friendly, ContextManager["Session"]):
     """The class represents abstract interfaces for an API Session."""
 
     @abstractmethod
