@@ -1,7 +1,18 @@
 import pytest
+from urequest.credentials import Credentials
 from urequest.response import Response
-from urequest.session import Session, HttpSession
-from urequest.url import HttpUrl
+from urequest.session import Session, HttpSession, LoggedHttpSession
+from urequest.url import HttpUrl, Address
+
+
+@pytest.fixture(scope="session")
+def session_url() -> Address:
+    return HttpUrl(host="xkcd.com", path="info.0.json")
+
+
+@pytest.fixture(scope="session")
+def credentials() -> Credentials:
+    yield Credentials(username="superuser", password="superpass")
 
 
 @pytest.fixture(scope="session")
@@ -11,5 +22,16 @@ def session() -> Session:
 
 
 @pytest.fixture(scope="session")
-def response(session: Session) -> Response:
-    yield session.get(HttpUrl(host="xkcd.com", path="info.0.json"))
+def logged_session(credentials: Credentials) -> Session:
+    with LoggedHttpSession(credentials) as logged_http_session:  # type: Session
+        yield logged_http_session
+
+
+@pytest.fixture(scope="session")
+def response(session: Session, session_url: Address) -> Response:
+    yield session.get(session_url)
+
+
+@pytest.fixture(scope="session")
+def logged_response(logged_session: Session, session_url: Address) -> Response:
+    yield logged_session.get(session_url)
