@@ -10,6 +10,8 @@
 [![Checked with mypy](http://www.mypy-lang.org/static/mypy_badge.svg)](http://mypy-lang.org/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE.md)
 [![EO principles respected here](https://www.elegantobjects.org/badge.svg)](https://www.elegantobjects.org)
+[![PyPI version shields.io](https://img.shields.io/pypi/v/urequest.svg)](https://pypi.python.org/pypi/urequest/)
+[![PyPI pyversions](https://img.shields.io/pypi/pyversions/urequest.svg)](https://pypi.python.org/pypi/urequest/)
 
 # uRequest
 
