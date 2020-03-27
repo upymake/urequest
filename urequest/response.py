@@ -1,6 +1,6 @@
 """The module contains a set of API for HTTP responses types."""
 from abc import ABC, abstractmethod
-from typing import Dict, Any, Iterable, Union
+from typing import Any, Dict, Iterable, Union
 import requests
 
 JsonType = Union[Dict[Any, Any], Any]

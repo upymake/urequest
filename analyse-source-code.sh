@@ -31,7 +31,7 @@ check-flake() {
 :<<DOC
     Runs "flake8" code analysers
 DOC
-    --entry-point-box "flake" && ( flake8 ${PACKAGE} )
+    --entry-point-box "flake" && ( flake8 ./ )
 }
 
 

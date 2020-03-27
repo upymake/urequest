@@ -1,12 +1,12 @@
 """The module contains a set of API for HTTP sessions."""
 from abc import abstractmethod
 from types import TracebackType
-from typing import Dict, Any, ContextManager, Optional, Type
+from typing import Any, ContextManager, Dict, Optional, Type
 import requests
 from requests.auth import HTTPBasicAuth
 from uyaml.connection import Friendly
-from urequest.credentials import Credentials
-from urequest.response import Response, HttpResponse, safe_response
+from urequest.credentials import Credentials  # noqa: I100
+from urequest.response import HttpResponse, Response, safe_response
 from urequest.url import Address
 
 

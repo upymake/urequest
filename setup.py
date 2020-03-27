@@ -1,12 +1,12 @@
 """Package setup entrypoint."""
 from typing import IO, Sequence
-from setuptools import setup as __compose_package, find_packages as __find_packages
+from setuptools import find_packages as __find_packages, setup as __compose_package
 from urequest import (
-    __version__ as __version,
     __author__ as __author,
+    __doc__ as __short_doc,
     __email__ as __email,
     __name__ as __name,
-    __doc__ as __short_doc,
+    __version__ as __version,
 )
 
 

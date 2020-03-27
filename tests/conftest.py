@@ -1,8 +1,8 @@
 import pytest
 from urequest.credentials import Credentials
 from urequest.response import Response
-from urequest.session import Session, HttpSession, LoggedHttpSession
-from urequest.url import HttpUrl, Address
+from urequest.session import HttpSession, LoggedHttpSession, Session
+from urequest.url import Address, HttpUrl
 
 
 @pytest.fixture(scope="session")

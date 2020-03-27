@@ -1,4 +1,4 @@
-from urequest.response import Response, JsonType
+from urequest.response import JsonType, Response
 
 
 class FakeHttpResponse(Response):

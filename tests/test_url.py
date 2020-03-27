@@ -1,6 +1,6 @@
-import pytest
 import _pytest.mark
-from urequest.url import Address, Url, HttpUrl, HttpsUrl
+import pytest
+from urequest.url import Address, HttpUrl, HttpsUrl, Url
 
 _host: str = "9.9.9.9"
 _path: str = "/api/path"
