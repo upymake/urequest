@@ -12,6 +12,7 @@
 [![EO principles respected here](https://www.elegantobjects.org/badge.svg)](https://www.elegantobjects.org)
 [![PyPI version shields.io](https://img.shields.io/pypi/v/urequest.svg)](https://pypi.python.org/pypi/urequest/)
 [![PyPI pyversions](https://img.shields.io/pypi/pyversions/urequest.svg)](https://pypi.python.org/pypi/urequest/)
+[![Downloads](https://pepy.tech/badge/urequest)](https://pepy.tech/project/urequest)
 [![CodeFactor](https://www.codefactor.io/repository/github/vyahello/urequest/badge)](https://www.codefactor.io/repository/github/vyahello/urequest)
 
 # uRequest
