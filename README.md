@@ -31,6 +31,7 @@
   - [mypy](http://mypy.readthedocs.io/en/latest)
   - [pylint](https://www.pylint.org/)
   - [flake8](http://flake8.pycqa.org/en/latest/)
+  - [travis](https://travis-ci.org/) CI
 
 ## Usage
 
