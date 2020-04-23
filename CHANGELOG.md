@@ -1,13 +1,20 @@
 Versions
 ========
 
+0.0.4
+======
+
+_Release date: 2020-03-24_
+
+- Use 'enforce-pep8' package
+
 0.0.3
 ========
 
 _Release date: 2020-03-23_
 
 - Update codefactor badge
-- (origin/master) Add 'travis CI' to tools
+- Add 'travis CI' to tools
 - Update organisation budges
 - Style release dates
 - Count amount of package downloads
