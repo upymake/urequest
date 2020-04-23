@@ -17,9 +17,9 @@
 
 # uRequest
 
-> Provides user-friendly HTTP client with object oriented support.
+> Provides user-friendly micro HTTP client with nothing but clean objects.
 >
-> Basically it is a wrapper over **requests** python library.
+> Basically, it is a wrapper over **requests** python library.
 
 ## Tools
 
@@ -39,7 +39,7 @@
 
 Please run following script to obtain latest package from PYPI:
 ```bash
-➜ pip install urequest
+pip install urequest
 ✨ 🍰 ✨
 ```
 ### Quick start
@@ -71,13 +71,13 @@ True
 ### Source code
 
 ```bash
-➜ git clone git@github.com:vyahello/urequest.git
-➜ pip install -e .
+git clone git@github.com:vyahello/urequest.git
+pip install -e .
 ```
 
-Or using direct source release:
+Or using direct specific release:
 ```bash
-➜ pip install git+https://github.com/vyahello/urequest@0.0.1
+pip install git+https://github.com/vyahello/urequest@0.0.1
 ```
 **[⬆ back to top](#urequest)**
 
@@ -89,7 +89,7 @@ Project has Travis CI integration using [.travis.yml](.travis.yml) file thus cod
 
 To be able to run code analysis, please execute command below:
 ```bash
-➜ ./analyse-source-code.sh
+./analyse-source-code.sh
 ```
 ### Release notes
 
@@ -97,7 +97,7 @@ Please check [changelog](CHANGELOG.md) file to get more details about actual ver
 
 ### Meta
 
-Author – Volodymyr Yahello
+Author – _Volodymyr Yahello_. Please check [AUTHORS](AUTHORS.md) file for all contributors.
 
 Distributed under the `MIT` license. See [LICENSE](LICENSE.md) for more information.
 

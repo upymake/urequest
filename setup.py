@@ -5,6 +5,7 @@ from urequest import (
     __author__ as __author,
     __doc__ as __short_doc,
     __email__ as __email,
+    __license__ as __license,
     __name__ as __name,
     __version__ as __version,
 )
@@ -39,7 +40,7 @@ if __name__ == "__main__":
             "Programming Language :: Python :: 3.6",
             "Programming Language :: Python :: 3.7",
             "Programming Language :: Python :: 3.8",
-            "License :: OSI Approved :: MIT License",
+            f"License :: OSI Approved :: {__license}",
             "Operating System :: OS Independent",
         ),
         python_requires=">=3.6",

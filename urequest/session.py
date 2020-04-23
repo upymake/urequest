@@ -1,16 +1,16 @@
 """The module contains a set of API for HTTP sessions."""
 from abc import abstractmethod
 from types import TracebackType
-from typing import Any, ContextManager, Dict, Optional, Type
+from typing import Any, Dict, Optional, Type
+from punish.type import AbstractContextManager
 import requests
 from requests.auth import HTTPBasicAuth
-from uyaml.connection import Friendly
 from urequest.credentials import Credentials  # noqa: I100
 from urequest.response import HttpResponse, Response, safe_response
 from urequest.url import Address
 
 
-class Session(Friendly, ContextManager["Session"]):
+class Session(AbstractContextManager):
     """The class represents abstract interfaces for an API Session."""
 
     @abstractmethod
