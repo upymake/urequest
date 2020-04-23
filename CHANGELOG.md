@@ -1,13 +1,19 @@
 Versions
 ========
 
-0.0.2 (2020-03-25)
+0.0.2
 ========
+
+_Release date: 2020-03-25_
+
 - Create logged http session interface
 - Implement credentials interface
 
-0.0.1 (2020-03-24)
+0.0.1
 ========
+
+_Release date: 2020-03-24_
+
 - Create package setup procedure
 - Describe usage in readme file
 - Include HTTP session unittests
