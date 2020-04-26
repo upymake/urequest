@@ -1,6 +1,14 @@
 Versions
 ========
 
+0.0.5
+======
+
+_Release date: 2020-04-26_
+
+- Disable 'pylint' for unittests
+- Define public interfaces on the package level
+
 0.0.4
 ======
 
