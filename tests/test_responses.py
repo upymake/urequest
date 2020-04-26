@@ -1,3 +1,4 @@
+# pylint: disable-all
 from typing import Iterable
 import _pytest.mark
 import pytest

@@ -1,3 +1,4 @@
+# pylint: disable-all
 import pytest
 from urequest.credentials import Credentials
 

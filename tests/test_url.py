@@ -1,3 +1,4 @@
+# pylint: disable-all
 import _pytest.mark
 import pytest
 from urequest.url import Address, HttpUrl, HttpsUrl, Url
