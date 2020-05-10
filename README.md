@@ -23,7 +23,7 @@
 
 ## Tools
 
-- python 3.6 | 3.7 | 3.8
+- python 3.6, 3.7, 3.8
 - [requests](https://requests.readthedocs.io/en/master) library
 - code analysis
   - [pytest](https://pypi.org/project/pytest/)
