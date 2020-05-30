@@ -7,7 +7,7 @@ from urequest.url import Address, HttpUrl, HttpsUrl, Url
 
 __author__: str = "Volodymyr Yahello"
 __email__: str = "vyahello@gmail.com"
-__version__: str = "0.0.5"
+__version__: str = "0.0.6"
 __license__: str = "MIT License"
 
 __all__: Tuple[str, ...] = (

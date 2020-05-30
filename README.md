@@ -49,11 +49,13 @@ pip install urequest
 >>> from urequest.response import Response
 >>> from urequest.url import HttpUrl
 >>>
->>> session: Session = HttpSession()
->>> response: Response = session.get(HttpUrl(host="xkcd.com", path="info.0.json"))
->>> response.is_ok()
+>>> session: Session
+>>> with HttpSession() as session:
+...     response: Response = session.get(HttpUrl(host="xkcd.com", path="info.0.json"))
+...     response.is_ok()
+...     response.as_json()
+...
 True
->>> response.as_json()
 {
     "month": "3",
     "num": 2284,
