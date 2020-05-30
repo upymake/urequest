@@ -1,6 +1,16 @@
 Versions
 ========
 
+0.0.6
+======
+
+_Release date: 2020-05-30_
+
+- Describe http status codes as corresponding object
+- Use 100 lines of code
+- Split supported python versions with comma
+- Set theme jekyll-theme-architect
+
 0.0.5
 ======
 
