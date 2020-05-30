@@ -1,5 +1,6 @@
 """The module contains a set of API for HTTP responses types."""
 from abc import ABC, abstractmethod
+from http import HTTPStatus
 from typing import Any, Dict, Iterable, Union
 import requests
 
@@ -21,7 +22,7 @@ class Response(ABC):
         pass
 
     @abstractmethod
-    def code(self) -> int:
+    def code(self) -> HTTPStatus:
         """Returns HTTP response status code."""
         pass
 
@@ -45,8 +46,8 @@ class HttpResponse(Response):
     def is_ok(self) -> bool:
         return self._response.ok
 
-    def code(self) -> int:
-        return self._response.status_code
+    def code(self) -> HTTPStatus:
+        return HTTPStatus(self._response.status_code)
 
     def as_json(self) -> JsonType:
         return self._response.json()
@@ -55,7 +56,10 @@ class HttpResponse(Response):
         return self._response.text
 
 
-def safe_response(response: Response, success_codes: Iterable[int] = (200, 201, 204)) -> Response:
+def safe_response(
+    response: Response,
+    success_codes: Iterable[int] = (HTTPStatus.OK, HTTPStatus.CREATED, HTTPStatus.NO_CONTENT),
+) -> Response:
     """Specifies safe response from iterable of success HTTP status codes.
 
     Args:
