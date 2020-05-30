@@ -19,7 +19,7 @@
 
 > Provides user-friendly micro HTTP client with nothing but clean objects.
 >
-> Basically, it is a wrapper over **requests** python library. For asynchronous version please check [aiorequest](https://github.com/aiopymake/aiorequest) package.
+> Basically, it is a wrapper over **requests** python library. For asynchronous version please check [aiorequest](https://aiopymake.github.io/aiorequest) package.
 
 ## Tools
 
