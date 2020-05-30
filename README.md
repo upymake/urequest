@@ -128,9 +128,14 @@ I would highly appreciate any contribution and support. If you are interested to
 2. Configure `git` for the first time after cloning with your `name` and `email`
 3. `pip install -r requirements.txt` to install all project dependencies
 4. `pip install -r requirements-dev.txt` to install all development project dependencies
-5. Create your feature branch (git checkout -b feature/fooBar)
-6. Commit your changes (git commit -am 'Add some fooBar')
-7. Push to the branch (git push origin feature/fooBar)
+5. Create your feature branch (`git checkout -b feature/fooBar`)
+6. Commit your changes (`git commit -am 'Add some fooBar'`)
+7. Push to the branch (`git push origin feature/fooBar`)
 8. Create a new Pull Request
+
+### What's next
+
+All recent activities and ideas are described at project [issues](https://github.com/upymake/urequest/issues). 
+If you have ideas you want to change/implement please do not hesitate and create an issue.
 
 **[⬆ back to top](#urequest)**
