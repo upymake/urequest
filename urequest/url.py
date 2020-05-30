@@ -38,7 +38,10 @@ class Url(Address):
     def __str__(self) -> str:
         if self._host.startswith(self._protocol):
             return self._host
-        return f"{self._protocol}://{self._host}/{self._path if not self._path.startswith('/') else self._path[1:]}"
+        return (
+            f"{self._protocol}://{self._host}/"
+            f"{self._path if not self._path.startswith('/') else self._path[1:]}"
+        )
 
 
 class HttpUrl(Address):

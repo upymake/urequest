@@ -69,6 +69,7 @@ def safe_response(response: Response, success_codes: Iterable[int] = (200, 201, 
     """
     if response.code() not in success_codes:
         raise ResponseError(
-            f"HTTP response contains some errors with '{response.code()}' status code! Reason: {response}"
+            f"HTTP response contains some errors with '{response.code()}' "
+            f"status code! Reason: {response}"
         )
     return response

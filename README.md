@@ -19,19 +19,19 @@
 
 > Provides user-friendly micro HTTP client with nothing but clean objects.
 >
-> Basically, it is a wrapper over **requests** python library.
+> Basically, it is a wrapper over **requests** python library. For asynchronous version please check [aiorequest](https://github.com/aiopymake/aiorequest) package.
 
 ## Tools
 
 - python 3.6, 3.7, 3.8
 - [requests](https://requests.readthedocs.io/en/master) library
+- [travis](https://travis-ci.org/) CI
 - code analysis
   - [pytest](https://pypi.org/project/pytest/)
   - [black](https://black.readthedocs.io/en/stable/)
   - [mypy](http://mypy.readthedocs.io/en/latest)
   - [pylint](https://www.pylint.org/)
   - [flake8](http://flake8.pycqa.org/en/latest/)
-  - [travis](https://travis-ci.org/) CI
 
 ## Usage
 
@@ -72,13 +72,26 @@ True
 
 ```bash
 git clone git@github.com:vyahello/urequest.git
-pip install -e .
+python setup.py install
 ```
 
-Or using direct specific release:
+Or using specific release:
 ```bash
 pip install git+https://github.com/vyahello/urequest@0.0.1
 ```
+
+### Local debug
+
+```bash
+git clone git@github.com:aiopymake/aiorequest.git
+```
+
+```python
+>>> import urequest
+>>> urequest.__doc__
+'Provides user-friendly HTTP client with clean objects.'
+```
+
 **[⬆ back to top](#urequest)**
 
 ## Development notes

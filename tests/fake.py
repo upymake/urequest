@@ -4,7 +4,9 @@ from urequest.response import JsonType, Response
 class FakeHttpResponse(Response):
     """The class represents fake HTTP response interface."""
 
-    def __init__(self, code: int, is_ok: bool = True, as_str: str = str(), as_dict: JsonType = {}) -> None:
+    def __init__(
+        self, code: int, is_ok: bool = True, as_str: str = str(), as_dict: JsonType = {}
+    ) -> None:
         self._code: int = code
         self._is_ok: bool = is_ok
         self._as_str: str = as_str
