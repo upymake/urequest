@@ -1,10 +1,11 @@
 """The module contains a set of API for HTTP responses types."""
+import http
 from abc import ABC, abstractmethod
-from http import HTTPStatus
 from typing import Any, Dict, Iterable, Union
 import requests
 
 JsonType = Union[Dict[Any, Any], Any]
+HTTPStatus = http.HTTPStatus
 
 
 class ResponseError(Exception):
@@ -22,8 +23,8 @@ class Response(ABC):
         pass
 
     @abstractmethod
-    def code(self) -> HTTPStatus:
-        """Returns HTTP response status code."""
+    def status(self) -> HTTPStatus:
+        """Returns HTTP response status."""
         pass
 
     @abstractmethod
@@ -46,7 +47,7 @@ class HttpResponse(Response):
     def is_ok(self) -> bool:
         return self._response.ok
 
-    def code(self) -> HTTPStatus:
+    def status(self) -> HTTPStatus:
         return HTTPStatus(self._response.status_code)
 
     def as_json(self) -> JsonType:
@@ -71,9 +72,9 @@ def safe_response(
 
     Returns: a response
     """
-    if response.code() not in success_codes:
+    if response.status() not in success_codes:
         raise ResponseError(
-            f"HTTP response contains some errors with '{response.code()}' "
-            f"status code! Reason: {response}"
+            f"HTTP response contains some errors with '{response.status()}' "
+            f"status! Reason: {response}"
         )
     return response

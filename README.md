@@ -51,11 +51,13 @@ pip install urequest
 >>>
 >>> session: Session
 >>> with HttpSession() as session:
-...     response: Response = session.get(HttpUrl(host="xkcd.com", path="info.0.json"))
-...     response.is_ok()
+...     response: Response = session.get(
+...         HttpUrl(host="xkcd.com", path="info.0.json")
+...     )
+...     response.status()
 ...     response.as_json()
 ...
-True
+<HTTPStatus.OK: 200>
 {
     "month": "3",
     "num": 2284,

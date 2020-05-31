@@ -1,16 +1,15 @@
 # pylint: disable-all
-from http import HTTPStatus
 from typing import Iterable
 import _pytest.mark
 import pytest
 from tests.fake import FakeHttpResponse
-from urequest.response import Response, ResponseError, safe_response
+from urequest.response import HTTPStatus, Response, ResponseError, safe_response
 
 pytestmark: _pytest.mark.MarkDecorator = pytest.mark.unittest
 
 
 @pytest.mark.parametrize(  # noqa: PT006, PT007
-    "code, expected",
+    "status, expected",
     (
         pytest.param(
             HTTPStatus.CONTINUE,
@@ -39,8 +38,8 @@ pytestmark: _pytest.mark.MarkDecorator = pytest.mark.unittest
         ),
     ),
 )
-def test_safe_response_code(code: HTTPStatus, expected: Iterable[int]) -> None:
-    assert isinstance(safe_response(FakeHttpResponse(code), success_codes=expected), Response)
+def test_safe_response_code(status: HTTPStatus, expected: Iterable[int]) -> None:
+    assert isinstance(safe_response(FakeHttpResponse(status), success_codes=expected), Response)
 
 
 def test_safe_response_error() -> None:
@@ -60,7 +59,7 @@ def test_response_is_ok(response: Response) -> None:
 
 
 def test_response_code(response: Response) -> None:
-    assert response.code() is HTTPStatus.OK
+    assert response.status() is HTTPStatus.OK
 
 
 def test_response_text(response: Response) -> None:
@@ -76,7 +75,7 @@ def test_logged_response_is_ok(logged_response: Response) -> None:
 
 
 def test_logged_response_code(logged_response: Response) -> None:
-    assert logged_response.code() is HTTPStatus.OK
+    assert logged_response.status() is HTTPStatus.OK
 
 
 def test_logged_response_text(logged_response: Response) -> None:

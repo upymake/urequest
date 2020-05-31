@@ -1,5 +1,4 @@
-from http import HTTPStatus
-from urequest.response import JsonType, Response
+from urequest.response import HTTPStatus, JsonType, Response
 
 
 class FakeHttpResponse(Response):
@@ -16,7 +15,7 @@ class FakeHttpResponse(Response):
     def is_ok(self) -> bool:
         return self._is_ok
 
-    def code(self) -> HTTPStatus:
+    def status(self) -> HTTPStatus:
         return self._code
 
     def as_json(self) -> JsonType:
