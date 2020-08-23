@@ -109,6 +109,14 @@ To be able to run code analysis, please execute command below:
 ```bash
 ./analyse-source-code.sh
 ```
+
+In addition, a project uses [bats](https://github.com/sstephenson/bats) framework to test package workability. 
+
+Please run the following command to launch package tests:
+```bash
+bats test-package.bats
+```
+
 ### Release notes
 
 Please check [changelog](CHANGELOG.md) file to get more details about actual versions and it's release notes.
