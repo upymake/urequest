@@ -6,11 +6,14 @@ python:
 env:
   - PACKAGE_NAME=urequest PACKAGE_VERSION=0.0.6
 before_install:
+  - sudo add-apt-repository -y ppa:duggan/bats
+  - sudo apt-get update
+  - sudo apt-get -y install bats
   - pip install pip -U
   - pip install -r requirements-dev.txt -U
 script:
     - ./analyse-source-code.sh
-    - ./test-package.sh
+    - bats --pretty test-package.bats
 after_success:
   - coveralls
 notifications:

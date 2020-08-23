@@ -32,6 +32,7 @@
   - [mypy](http://mypy.readthedocs.io/en/latest)
   - [pylint](https://www.pylint.org/)
   - [flake8](http://flake8.pycqa.org/en/latest/)
+  - [bats](https://github.com/sstephenson/bats)
 
 ## Usage
 
