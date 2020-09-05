@@ -1,7 +1,15 @@
 #!/usr/bin/env bats
 
 
-@test "setup package" {
+uninstall-package() {
+:<<DOC
+    Uninstalls a package
+DOC
+  pip uninstall -y ${PACKAGE_NAME}
+}
+
+
+@test "custom setup package" {
 :<<DOC
     Test 'package' setup
 DOC
@@ -10,7 +18,7 @@ DOC
 }
 
 
-@test "package install" {
+@test "custom package install" {
 :<<DOC
     Test package is installed
 DOC
@@ -28,11 +36,29 @@ DOC
 }
 
 
+@test "uninstall custom package" {
+:<<DOC
+    Test "uninstall package"
+DOC
+  uninstall-package
+  [ "$?" -eq 0 ]
+}
+
+
+@test "install package via pip" {
+:<<DOC
+    Test 'package' setup
+DOC
+  pip install ${PACKAGE_NAME}==${PACKAGE_VERSION}
+  [ "$?" -eq 0 ]
+}
+
+
 @test "cleanup" {
 :<<DOC
     Cleans up environment
 DOC
   rm -rf ${PACKAGE_NAME}.egg-info dist build
-  pip uninstall -y ${PACKAGE_NAME}
+  uninstall-package
   [ "$?" -eq 0 ]
 }
