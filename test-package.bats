@@ -20,11 +20,7 @@ DOC
 
 @test "package name" {
 :<<DOC
-<<<<<<< HEAD
   Test package name
-=======
-    Test package name
->>>>>>> 37c49bd... Prepare package state in BATS setup/teardown
 DOC
   pip list | grep ${PACKAGE_NAME}
   [ "$?" -eq 0 ]
