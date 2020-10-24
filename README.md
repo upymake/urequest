@@ -23,16 +23,20 @@
 
 ## Tools
 
+### Production
+
 - python 3.6, 3.7, 3.8
 - [requests](https://requests.readthedocs.io/en/master) library
+
+### Development
+
 - [travis](https://travis-ci.org/) CI
-- code analysis
-  - [pytest](https://pypi.org/project/pytest/)
-  - [black](https://black.readthedocs.io/en/stable/)
-  - [mypy](http://mypy.readthedocs.io/en/latest)
-  - [pylint](https://www.pylint.org/)
-  - [flake8](http://flake8.pycqa.org/en/latest/)
-  - [bats](https://github.com/sstephenson/bats)
+- [pytest](https://pypi.org/project/pytest/) framework
+- [black](https://black.readthedocs.io/en/stable/) code formatter
+- [mypy](http://mypy.readthedocs.io/en/latest) static tyler
+- [pylint](https://www.pylint.org/) code style
+- [flake8](http://flake8.pycqa.org/en/latest/) code formatter
+- [bats](https://github.com/sstephenson/bats) framework
 
 ## Usage
 
