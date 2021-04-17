@@ -86,7 +86,7 @@ python setup.py install
 
 Or using specific release:
 ```bash
-pip install git+https://github.com/vyahello/urequest@0.0.1
+pip install git+https://github.com/vyahello/urequest@0.0.4
 ```
 
 ### Local debug
