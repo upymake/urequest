@@ -1,4 +1,6 @@
 import pytest
+
+from tests.mock.users import UsersMock
 from urequest.credentials import Credentials
 from urequest.response import Response
 from urequest.session import HttpSession, LoggedHttpSession, Session
@@ -37,3 +39,9 @@ def response(session: Session, session_url: Address) -> Response:
 @pytest.fixture(scope="session")
 def logged_response(logged_session: Session, session_url: Address) -> Response:
     yield logged_session.get(session_url)
+
+
+@pytest.fixture()
+def users_mock() -> UsersMock:
+    with UsersMock(host="0.0.0.0", port=4444) as mock:
+        yield mock
