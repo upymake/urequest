@@ -11,17 +11,17 @@ pytestmark: _pytest.mark.MarkDecorator = pytest.mark.unittest
 
 @pytest.fixture(scope="module")
 def url() -> Address:
-    yield Url(_host, protocol="ftp", path=_path)
+    return Url(_host, protocol="ftp", path=_path)
 
 
 @pytest.fixture(scope="module")
 def http_url() -> Address:
-    yield HttpUrl(_host, _path)
+    return HttpUrl(_host, _path)
 
 
 @pytest.fixture(scope="module")
 def https_url() -> Address:
-    yield HttpsUrl(_host, _path)
+    return HttpsUrl(_host, _path)
 
 
 def test_url_with_leading_slash() -> None:

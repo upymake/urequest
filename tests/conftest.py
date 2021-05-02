@@ -1,6 +1,8 @@
+import time
+
 import pytest
 
-from tests.mock.users import UsersMock
+from tests.mock.employees import EmployeesMockThread, Mock
 from urequest.credentials import Credentials
 from urequest.response import Response
 from urequest.session import HttpSession, LoggedHttpSession, Session
@@ -14,13 +16,13 @@ def session_url() -> Address:
 
 @pytest.fixture(scope="session")
 def credentials() -> Credentials:
-    yield Credentials(username="superuser", password="superpass")
+    return Credentials(username="superuser", password="superpass")
 
 
 @pytest.fixture(scope="session")
 def session() -> Session:
     with HttpSession() as http_session:  # type: Session
-        yield http_session
+        return http_session
 
 
 @pytest.fixture(scope="session")
@@ -28,20 +30,21 @@ def logged_session(credentials: Credentials) -> Session:
     with LoggedHttpSession(
         credentials
     ) as logged_http_session:  # type: Session
-        yield logged_http_session
+        return logged_http_session
 
 
 @pytest.fixture(scope="session")
 def response(session: Session, session_url: Address) -> Response:
-    yield session.get(session_url)
+    return session.get(session_url)
 
 
 @pytest.fixture(scope="session")
 def logged_response(logged_session: Session, session_url: Address) -> Response:
-    yield logged_session.get(session_url)
+    return logged_session.get(session_url)
 
 
-@pytest.fixture()
-def users_mock() -> UsersMock:
-    with UsersMock(host="0.0.0.0", port=4444) as mock:
-        yield mock
+@pytest.fixture(scope="session")
+def employees_mock() -> Mock:
+    with EmployeesMockThread(host="0.0.0.0", port=4444) as mock:
+        time.sleep(5)
+        return mock

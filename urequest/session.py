@@ -156,7 +156,7 @@ class HttpSession(Session):
         return safe_response(
             HttpResponse(
                 self._session.post(
-                    str(url), data=plain, json=as_dict, **kwargs
+                    str(url), data=as_dict, json=plain, **kwargs
                 )
             )
         )
@@ -170,7 +170,7 @@ class HttpSession(Session):
     ) -> Response:
         return safe_response(
             HttpResponse(
-                self._session.put(str(url), data=plain, json=as_dict, **kwargs)
+                self._session.put(str(url), data=as_dict, json=plain, **kwargs)
             )
         )
 
@@ -184,7 +184,7 @@ class HttpSession(Session):
         return safe_response(
             HttpResponse(
                 self._session.patch(
-                    str(url), data=plain, json=as_dict, **kwargs
+                    str(url), data=as_dict, json=plain, **kwargs
                 )
             )
         )
