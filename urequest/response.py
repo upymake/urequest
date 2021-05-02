@@ -59,7 +59,11 @@ class HttpResponse(Response):
 
 def safe_response(
     response: Response,
-    success_codes: Iterable[int] = (HTTPStatus.OK, HTTPStatus.CREATED, HTTPStatus.NO_CONTENT),
+    success_codes: Iterable[int] = (
+        HTTPStatus.OK,
+        HTTPStatus.CREATED,
+        HTTPStatus.NO_CONTENT,
+    ),
 ) -> Response:
     """Specifies safe response from iterable of success HTTP status codes.
 

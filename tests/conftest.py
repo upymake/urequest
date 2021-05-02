@@ -23,7 +23,9 @@ def session() -> Session:
 
 @pytest.fixture(scope="session")
 def logged_session(credentials: Credentials) -> Session:
-    with LoggedHttpSession(credentials) as logged_http_session:  # type: Session
+    with LoggedHttpSession(
+        credentials
+    ) as logged_http_session:  # type: Session
         yield logged_http_session
 
 

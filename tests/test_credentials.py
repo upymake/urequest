@@ -14,4 +14,7 @@ def test_password(credentials: Credentials) -> None:
 
 
 def test_as_string(credentials: Credentials) -> None:
-    assert str(credentials) == "Credentials(username='superuser', password='superpass')"
+    assert (
+        str(credentials) == "Credentials("
+                            "username='superuser', password='superpass')"
+    )

@@ -3,7 +3,12 @@ from typing import Iterable
 import _pytest.mark
 import pytest
 from tests.fake import FakeHttpResponse
-from urequest.response import HTTPStatus, Response, ResponseError, safe_response
+from urequest.response import (
+    HTTPStatus,
+    Response,
+    ResponseError,
+    safe_response,
+)
 
 pytestmark: _pytest.mark.MarkDecorator = pytest.mark.unittest
 
@@ -13,7 +18,11 @@ pytestmark: _pytest.mark.MarkDecorator = pytest.mark.unittest
     (
         pytest.param(
             HTTPStatus.CONTINUE,
-            (HTTPStatus.CONTINUE, HTTPStatus.SWITCHING_PROTOCOLS, HTTPStatus.PROCESSING),
+            (
+                HTTPStatus.CONTINUE,
+                HTTPStatus.SWITCHING_PROTOCOLS,
+                HTTPStatus.PROCESSING,
+            ),
             id="info",
         ),
         pytest.param(
@@ -23,23 +32,40 @@ pytestmark: _pytest.mark.MarkDecorator = pytest.mark.unittest
         ),
         pytest.param(
             HTTPStatus.MULTIPLE_CHOICES,
-            (HTTPStatus.MULTIPLE_CHOICES, HTTPStatus.MOVED_PERMANENTLY, HTTPStatus.FOUND),
+            (
+                HTTPStatus.MULTIPLE_CHOICES,
+                HTTPStatus.MOVED_PERMANENTLY,
+                HTTPStatus.FOUND,
+            ),
             id="redirect",
         ),
         pytest.param(
             HTTPStatus.BAD_REQUEST,
-            (HTTPStatus.BAD_REQUEST, HTTPStatus.UNAUTHORIZED, HTTPStatus.PAYMENT_REQUIRED),
+            (
+                HTTPStatus.BAD_REQUEST,
+                HTTPStatus.UNAUTHORIZED,
+                HTTPStatus.PAYMENT_REQUIRED,
+            ),
             id="client error",
         ),
         pytest.param(
             HTTPStatus.INTERNAL_SERVER_ERROR,
-            (HTTPStatus.INTERNAL_SERVER_ERROR, HTTPStatus.NOT_IMPLEMENTED, HTTPStatus.BAD_GATEWAY),
+            (
+                HTTPStatus.INTERNAL_SERVER_ERROR,
+                HTTPStatus.NOT_IMPLEMENTED,
+                HTTPStatus.BAD_GATEWAY,
+            ),
             id="server error",
         ),
     ),
 )
-def test_safe_response_code(status: HTTPStatus, expected: Iterable[int]) -> None:
-    assert isinstance(safe_response(FakeHttpResponse(status), success_codes=expected), Response)
+def test_safe_response_code(
+    status: HTTPStatus, expected: Iterable[int]
+) -> None:
+    assert isinstance(
+        safe_response(FakeHttpResponse(status), success_codes=expected),
+        Response,
+    )
 
 
 def test_safe_response_error() -> None:

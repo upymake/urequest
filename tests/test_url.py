@@ -33,7 +33,9 @@ def test_url_without_leading_slash() -> None:
 
 
 def test_url_with_full_host_path() -> None:
-    assert str(Url(f"ftp://{_host}/w/r", protocol="ftp")) == f"ftp://{_host}/w/r"
+    assert (
+        str(Url(f"ftp://{_host}/w/r", protocol="ftp")) == f"ftp://{_host}/w/r"
+    )
 
 
 def test_url_host(url: Address) -> None:

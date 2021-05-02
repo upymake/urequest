@@ -51,7 +51,11 @@ class Session(AbstractContextManager):
 
     @abstractmethod
     def post(
-        self, url: Address, plain: str = None, as_dict: Dict[Any, Any] = None, **kwargs: Any
+        self,
+        url: Address,
+        plain: str = None,
+        as_dict: Dict[Any, Any] = None,
+        **kwargs: Any,
     ) -> Response:
         """Performs ``POST`` HTTP request of a session.
 
@@ -67,7 +71,11 @@ class Session(AbstractContextManager):
 
     @abstractmethod
     def put(
-        self, url: Address, plain: str = None, as_dict: Dict[Any, Any] = None, **kwargs: Any
+        self,
+        url: Address,
+        plain: str = None,
+        as_dict: Dict[Any, Any] = None,
+        **kwargs: Any,
     ) -> Response:
         """Performs ``PUT`` HTTP request of a session.
 
@@ -83,7 +91,11 @@ class Session(AbstractContextManager):
 
     @abstractmethod
     def patch(
-        self, url: Address, plain: str = None, as_dict: Dict[Any, Any] = None, **kwargs: Any
+        self,
+        url: Address,
+        plain: str = None,
+        as_dict: Dict[Any, Any] = None,
+        **kwargs: Any,
     ) -> Response:
         """Performs ``PATCH`` HTTP request of a session.
 
@@ -120,37 +132,67 @@ class HttpSession(Session):
         return self
 
     def get(self, url: Address, **kwargs: Any) -> Response:
-        return safe_response(HttpResponse(self._session.get(str(url), **kwargs)))
+        return safe_response(
+            HttpResponse(self._session.get(str(url), **kwargs))
+        )
 
     def options(self, url: Address, **kwargs: Any) -> Response:
-        return safe_response(HttpResponse(self._session.options(str(url), **kwargs)))
+        return safe_response(
+            HttpResponse(self._session.options(str(url), **kwargs))
+        )
 
     def head(self, url: Address, **kwargs: Any) -> Response:
-        return safe_response(HttpResponse(self._session.head(str(url), **kwargs)))
+        return safe_response(
+            HttpResponse(self._session.head(str(url), **kwargs))
+        )
 
     def post(
-        self, url: Address, plain: str = None, as_dict: Dict[Any, Any] = None, **kwargs: Any
+        self,
+        url: Address,
+        plain: str = None,
+        as_dict: Dict[Any, Any] = None,
+        **kwargs: Any,
     ) -> Response:
         return safe_response(
-            HttpResponse(self._session.post(str(url), data=plain, json=as_dict, **kwargs))
+            HttpResponse(
+                self._session.post(
+                    str(url), data=plain, json=as_dict, **kwargs
+                )
+            )
         )
 
     def put(
-        self, url: Address, plain: str = None, as_dict: Dict[Any, Any] = None, **kwargs: Any
+        self,
+        url: Address,
+        plain: str = None,
+        as_dict: Dict[Any, Any] = None,
+        **kwargs: Any,
     ) -> Response:
         return safe_response(
-            HttpResponse(self._session.put(str(url), data=plain, json=as_dict, **kwargs))
+            HttpResponse(
+                self._session.put(str(url), data=plain, json=as_dict, **kwargs)
+            )
         )
 
     def patch(
-        self, url: Address, plain: str = None, as_dict: Dict[Any, Any] = None, **kwargs: Any
+        self,
+        url: Address,
+        plain: str = None,
+        as_dict: Dict[Any, Any] = None,
+        **kwargs: Any,
     ) -> Response:
         return safe_response(
-            HttpResponse(self._session.patch(str(url), data=plain, json=as_dict, **kwargs))
+            HttpResponse(
+                self._session.patch(
+                    str(url), data=plain, json=as_dict, **kwargs
+                )
+            )
         )
 
     def delete(self, url: Address, **kwargs: Any) -> Response:
-        return safe_response(HttpResponse(self._session.delete(str(url), **kwargs)))
+        return safe_response(
+            HttpResponse(self._session.delete(str(url), **kwargs))
+        )
 
     def __exit__(
         self,
@@ -165,9 +207,13 @@ class LoggedHttpSession(Session):
     """The class provides logged HTTP session."""
 
     def __init__(
-        self, credentials: Credentials, session: requests.Session = requests.Session()
+        self,
+        credentials: Credentials,
+        session: requests.Session = requests.Session(),
     ) -> None:
-        session.auth = HTTPBasicAuth(credentials.username, credentials.password)
+        session.auth = HTTPBasicAuth(
+            credentials.username, credentials.password
+        )
         self._session: Session = HttpSession(session)
 
     def __enter__(self) -> Any:
@@ -183,17 +229,29 @@ class LoggedHttpSession(Session):
         return self._session.head(url, **kwargs)
 
     def post(
-        self, url: Address, plain: str = None, as_dict: Dict[Any, Any] = None, **kwargs: Any
+        self,
+        url: Address,
+        plain: str = None,
+        as_dict: Dict[Any, Any] = None,
+        **kwargs: Any,
     ) -> Response:
         return self._session.post(url, plain, as_dict, **kwargs)
 
     def put(
-        self, url: Address, plain: str = None, as_dict: Dict[Any, Any] = None, **kwargs: Any
+        self,
+        url: Address,
+        plain: str = None,
+        as_dict: Dict[Any, Any] = None,
+        **kwargs: Any,
     ) -> Response:
         return self._session.post(url, plain, as_dict, **kwargs)
 
     def patch(
-        self, url: Address, plain: str = None, as_dict: Dict[Any, Any] = None, **kwargs: Any
+        self,
+        url: Address,
+        plain: str = None,
+        as_dict: Dict[Any, Any] = None,
+        **kwargs: Any,
     ) -> Response:
         return self._session.patch(url, plain, as_dict, **kwargs)
 

@@ -5,7 +5,11 @@ class FakeHttpResponse(Response):
     """The class represents fake HTTP response interface."""
 
     def __init__(
-        self, code: HTTPStatus, is_ok: bool = True, as_str: str = str(), as_dict: JsonType = {}
+        self,
+        code: HTTPStatus,
+        is_ok: bool = True,
+        as_str: str = str(),
+        as_dict: JsonType = {},
     ) -> None:
         self._code: HTTPStatus = code
         self._is_ok: bool = is_ok
