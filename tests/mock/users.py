@@ -49,7 +49,7 @@ class UsersMock:
             new_record = {"id": last_id + 1, **request.form.to_dict()}
             self._users.append(new_record)
             return self._app.response_class(
-                response=json.dumps(new_record), status=int(HTTPStatus.ACCEPTED)
+                response=json.dumps(new_record), status=int(HTTPStatus.CREATED)
             )
 
         @self._app.route(
