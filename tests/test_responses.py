@@ -2,7 +2,7 @@
 from typing import Iterable
 import _pytest.mark
 import pytest
-from tests.fake import FakeHttpResponse
+from tests.fake.response import FakeHttpResponse
 from urequest.response import (
     HTTPStatus,
     Response,
