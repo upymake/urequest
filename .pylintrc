@@ -54,7 +54,7 @@ confidence=
 
 disable=global-statement, no-name-in-module,
         invalid-name, too-few-public-methods, unnecessary-pass,
-        bad-continuation
+        bad-continuation, unsubscriptable-object
 
 [REPORTS]
 
