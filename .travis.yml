@@ -2,6 +2,7 @@ language: python
 python:
   - "3.6"
   - "3.7"
+  - "3.8"
 env:
   - PACKAGE_NAME=urequest PACKAGE_VERSION=0.0.6
 before_install:
