@@ -10,6 +10,9 @@ from urequest.response import HttpResponse, Response, safe_response
 from urequest.url import Address
 
 
+HttpConnectionError = requests.exceptions.ConnectionError
+
+
 class Session(AbstractContextManager):
     """The class represents abstract interfaces for an API Session."""
 

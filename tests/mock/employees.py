@@ -1,3 +1,4 @@
+import time
 from threading import Thread
 from types import TracebackType
 from typing import Any, Dict, List, Optional, Type
@@ -5,7 +6,7 @@ from typing import Any, Dict, List, Optional, Type
 from flask import Flask, Response, json, request
 
 from tests.mock import Mock
-from urequest.response import HTTPStatus
+from urequest import HTTPStatus, HttpConnectionError, HttpSession, HttpUrl
 
 
 class EmployeesMock(Mock):
@@ -33,7 +34,7 @@ class EmployeesMock(Mock):
     def start(self) -> None:
         """Starts an employees mock server."""
         self.__compose_routes()
-        self._app.run(host=self._host, port=self._port, debug=False)
+        self._app.run(host=self._host, port=self._port)
 
     def clean_up(self) -> None:
         """Cleans up database on server termination."""
@@ -116,6 +117,8 @@ class EmployeesMockThread(Mock):
 
     def __init__(self, host: str, port: int) -> None:
         self._mock: Mock = EmployeesMock(host, port)
+        self._start_timeout = 10
+        self._polling_wait = 1
 
     def __enter__(self) -> Mock:
         """Initializes employees mock server thread."""
@@ -132,10 +135,27 @@ class EmployeesMockThread(Mock):
         thread = Thread(target=self._mock.start)
         thread.daemon = True
         thread.start()
+        self.__wait_for_conn_ready()
 
     def clean_up(self) -> None:
         """Cleans up employees mock server thread data."""
         self._mock.clean_up()
+
+    def __wait_for_conn_ready(self) -> None:
+        """Waits for mock server connection to be up and running."""
+        while self._start_timeout:
+            try:
+                session = HttpSession()
+                session.get(HttpUrl(self.bind))
+                break
+            except HttpConnectionError:
+                time.sleep(self._polling_wait)
+                self._start_timeout -= self._polling_wait
+        else:
+            raise TimeoutError(
+                "Unable to start mock server after "
+                f"{self._start_timeout} seconds"
+            )
 
     def __exit__(
         self,

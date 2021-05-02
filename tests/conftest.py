@@ -1,5 +1,3 @@
-import time
-
 import pytest
 
 from tests.mock.employees import EmployeesMockThread, Mock
@@ -46,5 +44,4 @@ def logged_response(logged_session: Session, session_url: Address) -> Response:
 @pytest.fixture(scope="session")
 def employees_mock() -> Mock:
     with EmployeesMockThread(host="0.0.0.0", port=4444) as mock:
-        time.sleep(5)
         return mock
