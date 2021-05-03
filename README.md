@@ -108,6 +108,11 @@ git clone git@github.com:aiopymake/aiorequest.git
 
 ### CI
 
+> Please move `analyse-source-code.sh` script into `.git/hooks/pre-commit` file to be able to check your code on every next commit.
+```bash
+mv analyse-source-code.sh .git/hooks/pre-commit
+```
+
 Project has Travis CI integration using [.travis.yml](.travis.yml) file thus code analysis (`black`, `pylint`, `flake8`, `mypy`, `pydocstyle`) and unittests (`pytest`) will be run automatically after every made change to the repository.
 
 To be able to run code analysis, please execute command below:
