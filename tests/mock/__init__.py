@@ -1,5 +1,15 @@
 from abc import abstractmethod
 from contextlib import AbstractContextManager
+from dataclasses import dataclass
+
+
+@dataclass(frozen=True)
+class Endpoint:
+    """The class represents mock server endpoint."""
+
+    host: str
+    port: int
+    debug: bool = False
 
 
 class Mock(AbstractContextManager):
