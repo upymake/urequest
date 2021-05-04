@@ -1,6 +1,7 @@
 import pytest
 
-from tests.mock.employees import EmployeesMockThread, Mock
+from tests.mock import Endpoint
+from tests.mock.employees import EmployeesMock, Mock
 from urequest.credentials import Credentials
 from urequest.response import Response
 from urequest.session import HttpSession, LoggedHttpSession, Session
@@ -43,5 +44,5 @@ def logged_response(logged_session: Session, session_url: Address) -> Response:
 
 @pytest.fixture(scope="session")
 def employees_mock() -> Mock:
-    with EmployeesMockThread(host="0.0.0.0", port=4444) as mock:
+    with EmployeesMock(Endpoint(host="0.0.0.0", port=4444)) as mock:
         return mock

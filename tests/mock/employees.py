@@ -1,3 +1,4 @@
+import socket
 import time
 from threading import Thread
 from types import TracebackType
@@ -5,40 +6,98 @@ from typing import Any, Dict, List, Optional, Type
 
 from flask import Flask, Response, json, request
 
-from tests.mock import Mock
+from tests.mock import Endpoint, Mock
 from urequest import HTTPStatus, HttpConnectionError, HttpSession, HttpUrl
+
+
+def _wait_for_connection_ready(
+    url: HttpUrl, timeout: int = 10, poll: int = 1
+) -> None:
+    """Waits for connection to be up and running."""
+    end_time = time.time() + timeout
+    while end_time > time.time():
+        try:
+            session = HttpSession()
+            session.get(url)
+            break
+        except HttpConnectionError:
+            time.sleep(poll)
+    else:
+        raise TimeoutError(
+            f"Unable to start communication with {url} after {timeout} seconds"
+        )
+
+
+def _wait_for_connection_not_ready(
+    host: str, port: int, timeout: int = 5, poll: int = 1
+) -> None:
+    """Waits for connection to be down."""
+    end_time = time.time() + timeout
+    while end_time > time.time():
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as conn:
+            if conn.connect_ex((host, port)):
+                break
+        time.sleep(poll)
+    else:
+        raise TimeoutError(
+            f"Unable to stop communication with {host}:{port} "
+            f"after {timeout} seconds"
+        )
 
 
 class EmployeesMock(Mock):
     """The class represents a mocked storage server for employees.
 
     Basically it is used only for unit testing purposes.
+
+    A mock server is started in a separate thread.
+    It is required to inject mock in pytest fixtures.
     """
 
-    def __init__(self, host: str, port: int) -> None:
-        self._host = host
-        self._port = port
+    def __init__(
+        self, endpoint: Endpoint, app: Flask = Flask(import_name=__name__)
+    ) -> None:
+        self._endpoint = endpoint
+        self._app = app
         self._users: List[Dict[str, Any]] = []
-        self._app = Flask(import_name=__name__)
+
+    @property
+    def bind(self) -> str:
+        """Returns a binding address of a mock server."""
+        return f"{self._endpoint.host}:{self._endpoint.port}"
+
+    def start(self) -> None:
+        """Starts an employees mock server."""
+        self.__compose_routes()
+        thread = Thread(
+            target=self._app.run,
+            args=(
+                self._endpoint.host,
+                self._endpoint.port,
+                self._endpoint.debug,
+            ),
+        )
+        thread.daemon = True
+        thread.start()
+        _wait_for_connection_ready(url=HttpUrl(self.bind))
+
+    def clean_up(self) -> None:
+        """Cleans up database on server termination."""
+        self._users = []
 
     def __enter__(self) -> Mock:
         """Initializes employees mock server."""
         self.start()
         return self
 
-    @property
-    def bind(self) -> str:
-        """Returns a binding address of a mock server."""
-        return f"{self._host}:{self._port}"
-
-    def start(self) -> None:
-        """Starts an employees mock server."""
-        self.__compose_routes()
-        self._app.run(host=self._host, port=self._port)
-
-    def clean_up(self) -> None:
-        """Cleans up database on server termination."""
-        self._users = []
+    def __exit__(
+        self,
+        exc_type: Optional[Type[BaseException]],
+        exc_value: Optional[BaseException],
+        traceback: Optional[TracebackType],
+    ) -> None:
+        """Terminates employees mock server."""
+        self.clean_up()
 
     def __compose_routes(self) -> None:  # noqa: CFQ001, C901
         """Builds a set of routes for mock server."""
@@ -47,7 +106,7 @@ class EmployeesMock(Mock):
         def index() -> Response:
             return self._app.response_class(
                 response="Welcome to the employees test app!",
-                status=200,
+                status=int(HTTPStatus.OK),
             )
 
         @self._app.route("/users")
@@ -62,7 +121,7 @@ class EmployeesMock(Mock):
                 record_id = 0
             else:
                 record_id = self._users[len(self._users) - 1]["id"] + 1
-            new_record = {"id": record_id, **request.form.to_dict()}
+            new_record = {"id": record_id, **request.json}
             self._users.append(new_record)
             return self._app.response_class(
                 response=json.dumps(new_record), status=int(HTTPStatus.CREATED)
@@ -86,7 +145,7 @@ class EmployeesMock(Mock):
             if request.method == "PUT":
                 record = {
                     "id": self._users[user_id]["id"],
-                    **request.form.to_dict(),
+                    **request.json,
                 }
                 self._users[user_id] = record
                 return self._app.response_class(
@@ -97,71 +156,3 @@ class EmployeesMock(Mock):
                 return self._app.response_class(
                     response=json.dumps({}), status=int(HTTPStatus.NO_CONTENT)
                 )
-
-    def __exit__(
-        self,
-        exc_type: Optional[Type[BaseException]],
-        exc_value: Optional[BaseException],
-        traceback: Optional[TracebackType],
-    ) -> None:
-        """Terminates employees mock server."""
-        self.clean_up()
-
-
-class EmployeesMockThread(Mock):
-    """The class represents employees mocked storage server thread.
-
-    Starts mock server in a separate thread.
-    It is required to inject mock in pytest fixtures.
-    """
-
-    def __init__(self, host: str, port: int) -> None:
-        self._mock: Mock = EmployeesMock(host, port)
-        self._start_timeout = 10
-        self._polling_wait = 1
-
-    def __enter__(self) -> Mock:
-        """Initializes employees mock server thread."""
-        self.start()
-        return self
-
-    @property
-    def bind(self) -> str:
-        """Returns a binding address of a mock server thread."""
-        return self._mock.bind
-
-    def start(self) -> None:
-        """Starts employees mock server thread."""
-        thread = Thread(target=self._mock.start)
-        thread.daemon = True
-        thread.start()
-        self.__wait_for_conn_ready()
-
-    def clean_up(self) -> None:
-        """Cleans up employees mock server thread data."""
-        self._mock.clean_up()
-
-    def __wait_for_conn_ready(self) -> None:
-        """Waits for mock server connection to be up and running."""
-        while self._start_timeout:
-            try:
-                session = HttpSession()
-                session.get(HttpUrl(self.bind))
-                break
-            except HttpConnectionError:
-                time.sleep(self._polling_wait)
-                self._start_timeout -= self._polling_wait
-        else:
-            raise TimeoutError(
-                "Unable to start mock server after "
-                f"{self._start_timeout} seconds"
-            )
-
-    def __exit__(
-        self,
-        exc_type: Optional[Type[BaseException]],
-        exc_value: Optional[BaseException],
-        traceback: Optional[TracebackType],
-    ) -> None:
-        """Terminates employees mock server thread."""
-        self.clean_up()
