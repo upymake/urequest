@@ -1,4 +1,4 @@
-![Screenshot](icon.png)
+![Screenshot](logo.png)
 
 
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
@@ -19,7 +19,7 @@
 
 # uRequest
 
-> Provides user-friendly micro HTTP client with nothing but clean objects.
+> Provides user-friendly micro HTTP client with nothing but clean objects. Inspired by Elegant Object (EO) - https://www.elegantobjects.org.
 >
 > Basically, it is a wrapper over **requests** python library. For asynchronous version please check [aiorequest](https://aiopymake.github.io/aiorequest) package.
 
