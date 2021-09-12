@@ -2,7 +2,7 @@ import socket
 import time
 from threading import Thread
 from types import TracebackType
-from typing import Any, Dict, List, Optional, Type
+from typing import Any, Dict, Iterable, List, Optional, Type
 
 from flask import Flask, Response, json, request
 
@@ -102,6 +102,22 @@ class EmployeesMock(Mock):
     def __compose_routes(self) -> None:  # noqa: CFQ001, C901
         """Builds a set of routes for mock server."""
 
+        class _HttpMethods:
+            """Represents HTTP method."""
+
+            GET = "GET"
+            DELETE = "DELETE"
+            POST = "POST"
+            PUT = "PUT"
+
+            @classmethod
+            def for_creation(cls) -> Iterable[str]:
+                return (cls.POST,)
+
+            @classmethod
+            def for_users(cls) -> Iterable[str]:
+                return cls.GET, cls.PUT, cls.DELETE
+
         @self._app.route("/")
         def index() -> Response:
             return self._app.response_class(
@@ -115,11 +131,12 @@ class EmployeesMock(Mock):
                 response=json.dumps(self._users), status=int(HTTPStatus.OK)
             )
 
-        @self._app.route("/create_user", methods=("POST",))
+        @self._app.route(
+            "/create_user", methods=_HttpMethods.for_creation()
+        )
         def create_user() -> Response:
-            if not self._users:
-                record_id = 0
-            else:
+            record_id = 0
+            if self._users:
                 record_id = self._users[len(self._users) - 1]["id"] + 1
             new_record = {"id": record_id, **request.json}
             self._users.append(new_record)
@@ -128,10 +145,11 @@ class EmployeesMock(Mock):
             )
 
         @self._app.route(
-            "/users/<int:user_id>", methods=("GET", "PUT", "DELETE")
+            "/users/<int:user_id>",
+            methods=_HttpMethods.for_users(),
         )
         def user(user_id: int) -> Response:
-            if request.method == "GET":
+            if request.method == _HttpMethods.GET:
                 for next_user in self._users:  # type: Dict[str, Any]
                     if user_id == next_user["id"]:
                         return self._app.response_class(
@@ -142,7 +160,7 @@ class EmployeesMock(Mock):
                     response=f"{user_id} is not found",
                     status=int(HTTPStatus.NOT_FOUND),
                 )
-            if request.method == "PUT":
+            if request.method == _HttpMethods.PUT:
                 record = {
                     "id": self._users[user_id]["id"],
                     **request.json,
@@ -151,7 +169,7 @@ class EmployeesMock(Mock):
                 return self._app.response_class(
                     response=json.dumps(record), status=int(HTTPStatus.OK)
                 )
-            if request.method == "DELETE":
+            if request.method == _HttpMethods.DELETE:
                 self._users.pop(user_id)
                 return self._app.response_class(
                     response=json.dumps({}), status=int(HTTPStatus.NO_CONTENT)
